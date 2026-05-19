@@ -1,5 +1,6 @@
 package org.example.eventos.service;
 
+import org.example.eventos.dto.EventoRequestDTO;
 import org.example.eventos.dto.EventoResponseDTO;
 import org.example.eventos.model.Evento;
 import org.example.eventos.repository.EventoRepository;
@@ -29,6 +30,14 @@ public class EventoService {
                 .stream()
                 .map(this::toResponse)
                 .toList();
+    }
+
+    public EventoResponseDTO cadastrar(EventoRequestDTO dto){
+        Evento evento = toE
+    }
+
+    private Evento evento toEntity(EventoRequestDTO dto){
+
     }
 
     private EventoResponseDTO toResponse(Evento evento){

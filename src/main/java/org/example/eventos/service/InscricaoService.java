@@ -95,7 +95,6 @@ public class InscricaoService {
                 inscricao.getStatus(),
                 inscricao.getEvento().getId(),
                 inscricao.getEvento().getNome()
-                //TODO: fazer os gets de "inscricao" conforme o que deve aparecer no response
         );
     }
 }
