@@ -1,14 +1,23 @@
 package org.example.eventos.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
+@Table(name = "TBEVENTO")
 public class Evento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEvento;
+    @Column(name = "idEvento")
+    private Long id;
 
     private String nome;
 
@@ -20,6 +29,8 @@ public class Evento {
     private Double valorIngresso;
 
     //TO DO: corrigir o relacionamento entre Evento e LocalEvento
+    @ManyToOne
+    @JoinColumn(name = "localEvento")
     private Long localId;
 
 }

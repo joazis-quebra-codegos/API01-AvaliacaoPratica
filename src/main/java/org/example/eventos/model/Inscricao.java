@@ -1,8 +1,22 @@
 package org.example.eventos.model;
 
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
+@Table(name = "TBINSCRICAO")
 public class Inscricao {
 
-    private Long idInscricao;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idInscricao")
+    private Long id;
 
     private String nomeParticipante;
 
