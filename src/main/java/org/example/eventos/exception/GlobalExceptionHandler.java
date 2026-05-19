@@ -32,4 +32,15 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(erros);
     }
+
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    public ResponseEntity<Map<String, String>> RecursoNaoEncontrado(RecursoNaoEncontradoException ex) {
+        Map<String, String> erros = new HashMap<>();
+
+        ex.getBindingResult().getFieldErrors().forEach(erro -> {
+            erros.put(erro.getField(), erro.getDefaultMessage());
+        });
+
+        return ResponseEntity.notFound().build();
+    }
 }

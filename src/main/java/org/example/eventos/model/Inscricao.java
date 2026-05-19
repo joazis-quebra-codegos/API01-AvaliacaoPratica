@@ -25,6 +25,10 @@ public class Inscricao {
 
     private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "evento")
+    private Long idEvento;
+
     //TODO: transformar em entidade e colocar relacionamento
 
 }

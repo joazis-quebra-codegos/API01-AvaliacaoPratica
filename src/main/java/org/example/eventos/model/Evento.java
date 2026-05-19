@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,7 +33,10 @@ public class Evento {
     //TO DO: corrigir o relacionamento entre Evento e LocalEvento
     @ManyToOne
     @JoinColumn(name = "localEvento")
-    private Long localId;
+    private Long idLocal;
+
+    @OneToMany(mappedBy = "evento")
+    private List<Inscricao> inscricoes = new ArrayList<>();
 
 }
 

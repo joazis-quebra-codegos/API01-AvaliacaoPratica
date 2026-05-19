@@ -1,6 +1,9 @@
 package org.example.eventos.repository;
 
-public interface EventoRepository {
+import org.example.eventos.model.Evento;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EventoRepository extends JpaRepository<Evento, Long> {
 
     // TODO: criar método para filtrar eventos pelo nome.
 

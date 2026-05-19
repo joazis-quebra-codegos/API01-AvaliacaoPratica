@@ -26,7 +26,7 @@ public class LocalEvento {
     private String endereco;
 
     @OneToMany(mappedBy = "localEvento")
-    private List<Evento> eventos = new ArrayList<>;
+    private List<Evento> eventos = new ArrayList<>();
 
     private Integer capacidade;
 }

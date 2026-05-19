@@ -16,6 +16,10 @@ public record EventoResponseDTO(
 
         Long localId,
 
+        String localNome,
+
+        String endereco
+
         //TODO: retornar informações do local
 ) {
 }
