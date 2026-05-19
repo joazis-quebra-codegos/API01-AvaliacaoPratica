@@ -13,7 +13,5 @@ public record LocalEventoResponseDTO (
         String endereco,
 
         Integer capacidade
-
-        //TODO: colocar dados trazidos no response
 ){
 }

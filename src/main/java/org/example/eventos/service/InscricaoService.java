@@ -36,7 +36,7 @@ public class InscricaoService {
     }
 
     public InscricaoResponseDTO cadastrar(InscricaoRequestDTO dto) {
-        //Buscar evento aqui não é mais necessário devi ao toEntity()
+        //Buscar evento aqui não é mais necessário devido ao toEntity()
         Inscricao inscricao = toEntity(dto);
 
         Inscricao salva = inscricaoRepository.save(inscricao);
@@ -47,11 +47,9 @@ public class InscricaoService {
     public InscricaoResponseDTO atualizar(Long id, InscricaoRequestDTO dto) {
         Inscricao inscricao = inscricaoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
-                //TODO: adicionar a exception
 
         Evento evento = eventoRepository.findById(dto.idEvento())
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
-                //TODO: adicionar a exception
 
         inscricao.setNomeParticipante(dto.nome());
         inscricao.setEmailParticipante(dto.email());
@@ -68,9 +66,6 @@ public class InscricaoService {
                 .orElseThrow(() -> new RuntimeException("Inscrição não encontrada"));
 
         inscricaoRepository.deleteById(id);
-                    //TODO: adicionar a exception
-
-        //TODO: chamar método de deletar do repository
     }
 
     public List<InscricaoResponseDTO> listarPorEvento(Long idEvento) {

@@ -29,6 +29,4 @@ public class Inscricao {
     @JoinColumn(name = "evento")
     private Evento evento;
 
-    //TODO: transformar em entidade e colocar relacionamento
-
 }
