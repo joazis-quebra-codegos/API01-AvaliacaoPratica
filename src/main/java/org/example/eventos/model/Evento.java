@@ -33,7 +33,7 @@ public class Evento {
     //TO DO: corrigir o relacionamento entre Evento e LocalEvento
     @ManyToOne
     @JoinColumn(name = "localEvento")
-    private Long idLocal;
+    private LocalEvento localEvento;
 
     @OneToMany(mappedBy = "evento")
     private List<Inscricao> inscricoes = new ArrayList<>();

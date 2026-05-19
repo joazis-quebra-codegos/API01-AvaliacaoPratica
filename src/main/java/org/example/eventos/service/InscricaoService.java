@@ -24,7 +24,7 @@ public class InscricaoService {
     public List<InscricaoResponseDTO> listarTodas() {
         return inscricaoRepository.findAll()
                 .stream()
-                .map(this::converterParaResponse)
+                .map(this::toResponse)
                 .toList();
     }
 
@@ -32,44 +32,42 @@ public class InscricaoService {
         Inscricao inscricao = inscricaoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Inscrição não encontrada"));
 
-        return converterParaResponse(inscricao);
+        return toResponse(inscricao);
     }
 
     public InscricaoResponseDTO cadastrar(InscricaoRequestDTO dto) {
-        Evento evento = eventoRepository.findById(dto.eventoId())
-                //TODO: adicionar a exception
-
-        Inscricao inscricao = new Inscricao();
-
-        inscricao.setNomeParticipante(dto.nomeParticipante());
-        inscricao.setEmailParticipante(dto.emailParticipante());
-        inscricao.setStatus(dto.status());
-        inscricao.setEvento(evento);
+        //Buscar evento aqui não é mais necessário devi ao toEntity()
+        Inscricao inscricao = toEntity(dto);
 
         Inscricao salva = inscricaoRepository.save(inscricao);
 
-        return converterParaResponse(salva);
+        return toResponse(salva);
     }
 
     public InscricaoResponseDTO atualizar(Long id, InscricaoRequestDTO dto) {
         Inscricao inscricao = inscricaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
                 //TODO: adicionar a exception
 
-        Evento evento = eventoRepository.findById(dto.eventoId())
+        Evento evento = eventoRepository.findById(dto.idEvento())
+                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
                 //TODO: adicionar a exception
 
-        inscricao.setNomeParticipante(dto.nomeParticipante());
-        inscricao.setEmailParticipante(dto.emailParticipante());
+        inscricao.setNomeParticipante(dto.nome());
+        inscricao.setEmailParticipante(dto.email());
         inscricao.setStatus(dto.status());
         inscricao.setEvento(evento);
 
         Inscricao atualizada = inscricaoRepository.save(inscricao);
 
-        return converterParaResponse(atualizada);
+        return toResponse(atualizada);
     }
 
     public void deletar(Long id) {
         Inscricao inscricao = inscricaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Inscrição não encontrada"));
+
+        inscricaoRepository.deleteById(id);
                     //TODO: adicionar a exception
 
         //TODO: chamar método de deletar do repository
@@ -78,14 +76,31 @@ public class InscricaoService {
     public List<InscricaoResponseDTO> listarPorEvento(Long idEvento) {
         return inscricaoRepository.findByEventoId(idEvento)
                 .stream()
-                .map(this::converterParaResponse)
+                .map(this::toResponse)
                 .toList();
     }
 
-    private InscricaoResponseDTO converterParaResponse(Inscricao inscricao) {
-        return new InscricaoResponseDTO(
-                //TODO: fazer os gets de "inscricao" conforme o que deve aparecer no response
+    private Inscricao toEntity(InscricaoRequestDTO dto){
+        Evento evento = eventoRepository.findById(dto.idEvento())
+                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+        Inscricao inscricao = new Inscricao();
+        inscricao.setNomeParticipante(dto.nome());
+        inscricao.setEmailParticipante(dto.email());
+        inscricao.setStatus(dto.status());
+        inscricao.setEvento(evento);
 
+        return inscricao;
+    }
+
+    private InscricaoResponseDTO toResponse(Inscricao inscricao) {
+        return new InscricaoResponseDTO(
+                inscricao.getId(),
+                inscricao.getNomeParticipante(),
+                inscricao.getEmailParticipante(),
+                inscricao.getStatus(),
+                inscricao.getEvento().getId(),
+                inscricao.getEvento().getNome()
+                //TODO: fazer os gets de "inscricao" conforme o que deve aparecer no response
         );
     }
 }
