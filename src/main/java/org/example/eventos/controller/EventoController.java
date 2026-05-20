@@ -55,20 +55,20 @@ public class EventoController {
     }
 
     @Operation(summary = "Filtra eventos pelo nome")
-    @GetMapping("/buscar")
+    @GetMapping("/nomes")
     public List<EventoResponseDTO> listarPorNome(@RequestParam String nome) {
         //TODO: ajustar o mapeamento
         return service.listarPorNome(nome);
     }
 
     @Operation(summary = "Lista todas as incrições de um evento")
-    @GetMapping("/inscricoes")
-    public List<InscricaoResponseDTO> listarPorEvento(@PathVariable Long id) {
+    @GetMapping("/inscricoes/{id}")
+    public List<InscricaoResponseDTO> listarIncricoesPorEvento(@PathVariable Long id) {
         return inscricaoService.listarPorEvento(id);
     }
 
     @Operation(summary = "Lista eventos de um determinado local")
-    @GetMapping("/local")
+    @GetMapping("/local/{id}")
     public List<EventoResponseDTO> listarPorLocal(@PathVariable Long idLocal) {
         //TODO: revisar para garantir que recebe o id para buscar
         return service.listarPorLocal(idLocal);
