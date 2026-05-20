@@ -74,6 +74,11 @@ public class InscricaoService {
                 .toList();
     }
 
+    public Inscricao inscricao(Long id){
+        return inscricaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Inscrição não encontrada"));
+    }
+
     private Inscricao toEntity(InscricaoRequestDTO dto){
         Evento evento = eventoService.buscarEntidade(dto.idEvento());
         Inscricao inscricao = new Inscricao();

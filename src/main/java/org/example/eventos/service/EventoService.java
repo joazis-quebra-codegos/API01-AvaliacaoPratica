@@ -3,6 +3,7 @@ package org.example.eventos.service;
 import org.example.eventos.dto.EventoRequestDTO;
 import org.example.eventos.dto.EventoResponseDTO;
 import org.example.eventos.model.Evento;
+import org.example.eventos.model.LocalEvento;
 import org.example.eventos.repository.EventoRepository;
 import org.example.eventos.repository.LocalEventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class EventoService {
     private EventoRepository eventoRepository;
 
     @Autowired
-    private LocalEventoRepository localEventoRepository;
+    private LocalEventoService localEventoService;
 
     public EventoResponseDTO buscarPorId(Long id){
         return toResponse(eventoRepository.findById(id)
@@ -33,7 +34,31 @@ public class EventoService {
     }
 
     public EventoResponseDTO cadastrar(EventoRequestDTO dto){
-        Evento evento = toE
+        Evento evento = toEntity(dto);
+
+        Evento salva = eventoRepository.save(evento);
+
+        return toResponse(salva);
+    }
+
+    public void deletar(Long id){
+        eventoRepository.deleteById(id);
+    }
+
+    public EventoResponseDTO atualizar(Long id, EventoRequestDTO dto){
+        Evento evento = eventoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Evento não foi encontrado"));
+
+        LocalEvento localEvento = localEventoService.buscarEntidade(dto.localId());
+
+        evento.setNome(dto.nome());
+        evento.setDescricao(dto.descricao());
+        evento.setDataEvento(dto.dataEvento());
+        evento.setValorIngresso(dto.valorIngresso());
+        evento.setLocalEvento(localEvento);
+
+        return toResponse(evento);
+
     }
 
     public Evento buscarEntidade(Long id){
@@ -41,8 +66,16 @@ public class EventoService {
                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
     }
 
-    private Evento evento toEntity(EventoRequestDTO dto){
+    private Evento toEntity(EventoRequestDTO dto){
+        LocalEvento localEvento = localEventoService.buscarEntidade(dto.localId());
+        Evento evento = new Evento();
+        evento.setNome(dto.nome());
+        evento.setDescricao(dto.descricao());
+        evento.setDataEvento(dto.dataEvento());
+        evento.setValorIngresso(dto.valorIngresso());
+        evento.setLocalEvento(localEvento);
 
+        return evento;
     }
 
     private EventoResponseDTO toResponse(Evento evento){
