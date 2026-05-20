@@ -44,22 +44,6 @@ public class InscricaoService {
         return toResponse(salva);
     }
 
-    public InscricaoResponseDTO atualizar(Long id, InscricaoRequestDTO dto) {
-        Inscricao inscricao = inscricaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
-
-        Evento evento = eventoService.buscarEntidade(dto.idEvento());
-
-        inscricao.setNomeParticipante(dto.nome());
-        inscricao.setEmailParticipante(dto.email());
-        inscricao.setStatus(dto.status());
-        inscricao.setEvento(evento);
-
-        Inscricao atualizada = inscricaoRepository.save(inscricao);
-
-        return toResponse(atualizada);
-    }
-
     public void deletar(Long id) {
         Inscricao inscricao = inscricaoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Inscrição não encontrada"));

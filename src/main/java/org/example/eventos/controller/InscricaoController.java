@@ -37,10 +37,4 @@ public class InscricaoController {
     public void deletar(@PathVariable Long id){
         service.deletar(id);
     }
-
-    @PutMapping("/{id}")
-    public InscricaoResponseDTO atualizar(@RequestBody @Valid InscricaoRequestDTO dto, @PathVariable Long id){
-        return service.atualizar(id, dto);
-    }
-
 }
