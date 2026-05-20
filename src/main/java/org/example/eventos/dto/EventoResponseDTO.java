@@ -19,7 +19,5 @@ public record EventoResponseDTO(
         String localNome,
 
         String endereco
-
-        //TODO: retornar informações do local
 ) {
 }

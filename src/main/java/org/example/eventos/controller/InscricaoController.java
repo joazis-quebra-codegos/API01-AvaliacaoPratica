@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Inscrições", description = "Aqui é onde vê as inscrições")
+@Tag(name = "Inscrições", description = "Rotas para gerenciamento de inscrições")
 @RestController
 @RequestMapping("/inscricoes")
 public class InscricaoController {

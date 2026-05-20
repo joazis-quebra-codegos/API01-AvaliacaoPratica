@@ -7,8 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record EventoRequestDTO(
-
-        //TODO: colocar validações de entrada de dados
         @NotBlank(message = "Nome é obrigatório")
         String nome,
 

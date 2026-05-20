@@ -5,9 +5,7 @@ import org.example.eventos.dto.EventoResponseDTO;
 import org.example.eventos.model.Evento;
 import org.example.eventos.model.LocalEvento;
 import org.example.eventos.repository.EventoRepository;
-import org.example.eventos.repository.LocalEventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

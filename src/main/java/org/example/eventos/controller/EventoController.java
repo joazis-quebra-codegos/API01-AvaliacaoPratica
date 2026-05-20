@@ -2,6 +2,7 @@ package org.example.eventos.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.example.eventos.dto.EventoRequestDTO;
 import org.example.eventos.dto.EventoResponseDTO;
 import org.example.eventos.service.EventoService;
@@ -25,26 +26,25 @@ public class EventoController {
     }
 
     @Operation(summary = "Busca um evento por id")
-    @GetMapping("/{idEvento}")
+    @GetMapping("/{id}")
     public EventoResponseDTO buscarPorId(@PathVariable Long idEvento) {
         return service.buscarPorId(idEvento);
     }
 
     @Operation(summary = "Cadastra um novo evento")
     @PostMapping
-    public EventoResponseDTO cadastrar(@RequestBody EventoRequestDTO dto) {
-        //TODO: usar a validação de dados
+    public EventoResponseDTO cadastrar(@RequestBody @Valid EventoRequestDTO dto) {
         return service.cadastrar(dto);
     }
 
     @Operation(summary = "Atualiza um evento existente")
-    @PutMapping("/{idEvento}")
-    public EventoResponseDTO atualizar(@PathVariable Long idEvento, @RequestBody EventoRequestDTO dto) {
+    @PutMapping("/{id}")
+    public EventoResponseDTO atualizar(@PathVariable Long idEvento, @RequestBody @Valid EventoRequestDTO dto) {
         return service.atualizar(idEvento, dto);
     }
 
     @Operation(summary = "Remove um evento")
-    @DeleteMapping("/{idEvento}")
+    @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long idEvento) {
         service.deletar(idEvento);
     }

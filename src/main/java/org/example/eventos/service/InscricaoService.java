@@ -36,7 +36,7 @@ public class InscricaoService {
     }
 
     public InscricaoResponseDTO cadastrar(InscricaoRequestDTO dto) {
-        //Buscar evento aqui não é mais necessário devido ao toEntity()
+        //Buscar evento aqui não é mais necessário devido ao toEntity(), mesmo para as outras classes
         Inscricao inscricao = toEntity(dto);
 
         Inscricao salva = inscricaoRepository.save(inscricao);
@@ -56,11 +56,6 @@ public class InscricaoService {
                 .stream()
                 .map(this::toResponse)
                 .toList();
-    }
-
-    public Inscricao inscricao(Long id){
-        return inscricaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Inscrição não encontrada"));
     }
 
     private Inscricao toEntity(InscricaoRequestDTO dto){
