@@ -1,5 +1,5 @@
 # 1-Eventos
-# Avaliação Prática – API de Gestão de Eventos - João Henrique
+# Avaliação Prática – API de Gestão de Eventos
 
 ## Contexto
 
