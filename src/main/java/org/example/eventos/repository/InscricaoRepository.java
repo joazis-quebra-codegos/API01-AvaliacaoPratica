@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface InscricaoRepository extends JpaRepository<Inscricao, Long> {
     public List<Inscricao> findByEventoId(Long id);
-
-    //TODO: criar método para listar inscrições de um determinado evento.
 }
