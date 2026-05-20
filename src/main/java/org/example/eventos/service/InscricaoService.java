@@ -19,7 +19,7 @@ public class InscricaoService {
     private InscricaoRepository inscricaoRepository;
 
     @Autowired
-    private EventoRepository eventoRepository;
+    private EventoService eventoService;
 
     public List<InscricaoResponseDTO> listarTodas() {
         return inscricaoRepository.findAll()
@@ -48,8 +48,7 @@ public class InscricaoService {
         Inscricao inscricao = inscricaoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
-        Evento evento = eventoRepository.findById(dto.idEvento())
-                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+        Evento evento = eventoService.buscarEntidade(dto.idEvento());
 
         inscricao.setNomeParticipante(dto.nome());
         inscricao.setEmailParticipante(dto.email());
@@ -76,8 +75,7 @@ public class InscricaoService {
     }
 
     private Inscricao toEntity(InscricaoRequestDTO dto){
-        Evento evento = eventoRepository.findById(dto.idEvento())
-                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+        Evento evento = eventoService.buscarEntidade(dto.idEvento());
         Inscricao inscricao = new Inscricao();
         inscricao.setNomeParticipante(dto.nome());
         inscricao.setEmailParticipante(dto.email());

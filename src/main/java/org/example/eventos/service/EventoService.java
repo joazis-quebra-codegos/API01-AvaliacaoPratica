@@ -36,6 +36,11 @@ public class EventoService {
         Evento evento = toE
     }
 
+    public Evento buscarEntidade(Long id){
+        return eventoRepository.findById(id)
+               .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+    }
+
     private Evento evento toEntity(EventoRequestDTO dto){
 
     }
