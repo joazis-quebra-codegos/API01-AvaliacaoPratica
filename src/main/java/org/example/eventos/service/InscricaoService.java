@@ -51,8 +51,8 @@ public class InscricaoService {
         inscricaoRepository.deleteById(id);
     }
 
-    public List<InscricaoResponseDTO> listarPorEvento(Long idEvento) {
-        return inscricaoRepository.findByEventoId(idEvento)
+    public List<InscricaoResponseDTO> listarPorEvento(Long id) {
+        return inscricaoRepository.findByEventoId(id)
                 .stream()
                 .map(this::toResponse)
                 .toList();

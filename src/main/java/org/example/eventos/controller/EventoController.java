@@ -5,7 +5,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.example.eventos.dto.EventoRequestDTO;
 import org.example.eventos.dto.EventoResponseDTO;
+import org.example.eventos.dto.InscricaoResponseDTO;
 import org.example.eventos.service.EventoService;
+import org.example.eventos.service.InscricaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,17 +51,17 @@ public class EventoController {
         service.deletar(idEvento);
     }
 
-    //@Operation(summary = "Filtra eventos pelo nome")
-    //@GetMapping("/buscar")
-    //public List<EventoResponseDTO> filtrarPorNome(@RequestParam String nome) {
+    @Operation(summary = "Filtra eventos pelo nome")
+    @GetMapping("/buscar")
+    public List<EventoResponseDTO> listarPorNome(@RequestParam String nome) {
         //TODO: ajustar o mapeamento
-    //    return service.filtrarPorNome(nome);
-    //}
+        return service.listarPorNome(nome);
+    }
 
-    //@Operation(summary = "Lista eventos de um determinado local")
-    //@GetMapping("/local")
-    //public List<EventoResponseDTO> listarPorLocal(@PathVariable Long idLocal) {
+    @Operation(summary = "Lista eventos de um determinado local")
+    @GetMapping("/local")
+    public List<EventoResponseDTO> listarPorLocal(@PathVariable Long idLocal) {
         //TODO: revisar para garantir que recebe o id para buscar
-    //    return service.listarPorLocal(idLocal);
-    //}
+        return service.listarPorLocal(idLocal);
+    }
 }

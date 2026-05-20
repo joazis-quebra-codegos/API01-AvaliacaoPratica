@@ -2,7 +2,9 @@ package org.example.eventos.service;
 
 import org.example.eventos.dto.EventoRequestDTO;
 import org.example.eventos.dto.EventoResponseDTO;
+import org.example.eventos.dto.InscricaoResponseDTO;
 import org.example.eventos.model.Evento;
+import org.example.eventos.model.Inscricao;
 import org.example.eventos.model.LocalEvento;
 import org.example.eventos.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class EventoService {
 
     @Autowired
     private LocalEventoService localEventoService;
+
+    @Autowired
+    private InscricaoService inscricaoService;
 
     public EventoResponseDTO buscarPorId(Long id){
         return toResponse(eventoRepository.findById(id)
@@ -57,6 +62,20 @@ public class EventoService {
 
         return toResponse(evento);
 
+    }
+
+    public List<EventoResponseDTO> listarPorNome(String nome){
+        return eventoRepository.findByNomeContainingIgnoreCase(nome)
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    public List<EventoResponseDTO> listarPorLocal(Long id){
+        return eventoRepository.findByLocalEventoId(id)
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     public Evento buscarEntidade(Long id){
