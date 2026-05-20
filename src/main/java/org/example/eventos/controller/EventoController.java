@@ -21,6 +21,9 @@ public class EventoController {
     @Autowired
     private EventoService service;
 
+    @Autowired
+    private InscricaoService inscricaoService;
+
     @Operation(summary = "Lista todos os eventos")
     @GetMapping
     public List<EventoResponseDTO> listar() {
@@ -56,6 +59,12 @@ public class EventoController {
     public List<EventoResponseDTO> listarPorNome(@RequestParam String nome) {
         //TODO: ajustar o mapeamento
         return service.listarPorNome(nome);
+    }
+
+    @Operation(summary = "Lista todas as incrições de um evento")
+    @GetMapping("/inscricoes")
+    public List<InscricaoResponseDTO> listarPorEvento(@PathVariable Long id) {
+        return inscricaoService.listarPorEvento(id);
     }
 
     @Operation(summary = "Lista eventos de um determinado local")

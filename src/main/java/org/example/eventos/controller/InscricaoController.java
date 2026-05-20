@@ -39,10 +39,4 @@ public class InscricaoController {
         service.deletar(id);
     }
 
-
-    @Operation(summary = "Lista todas as incrições de um evento")
-    @GetMapping("/inscricoes")
-    public List<InscricaoResponseDTO> listarPorEvento(@PathVariable Long id) {
-        return service.listarPorEvento(id);
-    }
 }

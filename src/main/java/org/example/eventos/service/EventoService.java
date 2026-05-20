@@ -21,9 +21,6 @@ public class EventoService {
     @Autowired
     private LocalEventoService localEventoService;
 
-    @Autowired
-    private InscricaoService inscricaoService;
-
     public EventoResponseDTO buscarPorId(Long id){
         return toResponse(eventoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado")));
